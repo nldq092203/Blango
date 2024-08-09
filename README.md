@@ -1,4 +1,4 @@
-# blango
+# Blango dev
 
 ## Starting point for the Advanced Django course. This is the equivalent of the following command:
 
