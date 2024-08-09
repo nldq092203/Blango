@@ -30,9 +30,13 @@ class Dev(Configuration):
     DEBUG = True
 
     ALLOWED_HOSTS = ['*']
-    X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
+
+    print(f'DEBUG is set to: {DEBUG}')
+    print(f'ALLOWED_HOSTS is set to: {ALLOWED_HOSTS}')
+
+    # X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
     CSRF_COOKIE_SAMESITE = None
-    CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io']
+    # CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io']
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SAMESITE = 'None'
@@ -47,12 +51,17 @@ class Dev(Configuration):
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
+        "django.contrib.sites",
         'django.contrib.staticfiles',
         'blog',
         'crispy_forms',
         'crispy_bootstrap5',
         'debug_toolbar',
-        'blango_auth'
+        'blango_auth',
+        "allauth",
+        "allauth.account",
+        "allauth.socialaccount",
+        "allauth.socialaccount.providers.google"
     ]
 
     MIDDLEWARE = [
@@ -64,6 +73,7 @@ class Dev(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        "allauth.account.middleware.AccountMiddleware"
     ]
 
     ROOT_URLCONF = 'blango.urls'
@@ -147,7 +157,7 @@ class Dev(Configuration):
     CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
     CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
-    DJANGO_ADMINS="Ben Shaw,ben@example.com;Leo Lucio,leo@example.com"
+    # DJANGO_ADMINS="Ben Shaw,ben@example.com;Leo Lucio,leo@example.com"
 
     LOGGING = {
         "version": 1,
@@ -200,6 +210,12 @@ class Dev(Configuration):
 
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
     ACCOUNT_ACTIVATION_DAYS = 7
+    # LOGOUT_REDIRECT_URL = "/"
+    SITE_ID = 1
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_USERNAME_REQUIRED = False
+    ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 
 class Prod(Dev):
