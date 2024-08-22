@@ -23,7 +23,7 @@ from blango_auth.forms import BlangoRegistrationForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/v1/", include("blog.api_urls")),
+    path("api/v1/", include("blog.api.urls")),
     path('', include('blog.urls')),
     path("accounts/", include('blango_auth.urls')),
     path(
